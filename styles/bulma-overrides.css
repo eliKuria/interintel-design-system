@@ -1,0 +1,139 @@
+/* * bulma-overrides.css
+ * This file maps Bulma's default color classes to the custom properties
+ * from the Material Theme Builder JSON. This allows you to integrate
+ * your custom theme seamlessly with the Bulma framework.
+ *
+ * NOTE: This file assumes you have the Material Theme custom properties
+ * defined in a parent stylesheet or directly in your :root selector.
+ * For this example, we assume the light theme variables are the defaults.
+ */
+
+/* ==========================================================
+   Base Colors & Backgrounds
+   ========================================================== */
+
+/*
+ * These rules override Bulma's base background and text colors
+ * to match the Material Design surface and on-surface colors.
+ */
+:root {
+  /* Bulma's light theme variables, mapping to Material's light scheme */
+  --bulma-body-background-color: var(--md-sys-color-background);
+  --bulma-text: var(--md-sys-color-on-background);
+
+  /* Light theme color mappings for Bulma classes */
+  --bulma-primary: var(--md-sys-color-primary);
+  --bulma-link: var(--md-sys-color-primary);
+  --bulma-info: var(--md-sys-color-secondary);
+  --bulma-success: var(--md-sys-color-tertiary); /* Arbitrarily chosen as there is no 'success' in the Material theme */
+  --bulma-warning: #FFC107; /* Fallback for a standard warning color since the JSON doesn't define one */
+  --bulma-danger: var(--md-sys-color-error);
+  --bulma-light: var(--md-sys-color-surface-container-lowest);
+  --bulma-dark: var(--md-sys-color-surface-container-highest);
+}
+
+.dark {
+  /* Bulma's dark theme variables, mapping to Material's dark scheme */
+  --bulma-body-background-color: var(--md-sys-color-background);
+  --bulma-text: var(--md-sys-color-on-background);
+
+  /* Dark theme color mappings for Bulma classes */
+  --bulma-primary: var(--md-sys-color-primary);
+  --bulma-link: var(--md-sys-color-primary);
+  --bulma-info: var(--md-sys-color-secondary);
+  --bulma-success: var(--md-sys-color-tertiary);
+  --bulma-warning: #FFC107;
+  --bulma-danger: var(--md-sys-color-error);
+  --bulma-light: var(--md-sys-color-surface-container-lowest);
+  --bulma-dark: var(--md-sys-color-surface-container-highest);
+}
+
+/* ==========================================================
+   Bulma Class Overrides
+   ========================================================== */
+
+/*
+ * This section redefines Bulma's color utility classes
+ * to use the newly mapped CSS variables.
+ */
+
+/* Text colors */
+.has-text-primary { color: var(--bulma-primary) !important; }
+.has-text-info { color: var(--bulma-info) !important; }
+.has-text-success { color: var(--bulma-success) !important; }
+.has-text-warning { color: var(--bulma-warning) !important; }
+.has-text-danger { color: var(--bulma-danger) !important; }
+.has-text-light { color: var(--bulma-light) !important; }
+.has-text-dark { color: var(--bulma-dark) !important; }
+
+/* Background colors */
+.has-background-primary { background-color: var(--bulma-primary) !important; }
+.has-background-info { background-color: var(--bulma-info) !important; }
+.has-background-success { background-color: var(--bulma-success) !important; }
+.has-background-warning { background-color: var(--bulma-warning) !important; }
+.has-background-danger { background-color: var(--bulma-danger) !important; }
+.has-background-light { background-color: var(--bulma-light) !important; }
+.has-background-dark { background-color: var(--bulma-dark) !important; }
+
+/* Invert colors (for text on colored backgrounds) */
+.has-text-primary-light { color: var(--md-sys-color-on-primary) !important; }
+.has-text-info-light { color: var(--md-sys-color-on-secondary) !important; }
+.has-text-success-light { color: var(--md-sys-color-on-tertiary) !important; }
+.has-text-danger-light { color: var(--md-sys-color-on-error) !important; }
+
+/* Button and element overrides (e.g., .is-primary for buttons) */
+.is-primary {
+  background-color: var(--bulma-primary);
+  border-color: transparent;
+  color: var(--md-sys-color-on-primary);
+}
+.is-primary.is-hovered,
+.is-primary:hover {
+  background-color: var(--md-sys-color-primary-fixed-dim);
+  color: var(--md-sys-color-on-primary-fixed-variant);
+}
+
+.is-info {
+  background-color: var(--bulma-info);
+  border-color: transparent;
+  color: var(--md-sys-color-on-secondary);
+}
+.is-info.is-hovered,
+.is-info:hover {
+  background-color: var(--md-sys-color-secondary-fixed-dim);
+  color: var(--md-sys-color-on-secondary-fixed-variant);
+}
+
+.is-success {
+  background-color: var(--bulma-success);
+  border-color: transparent;
+  color: var(--md-sys-color-on-tertiary);
+}
+.is-success.is-hovered,
+.is-success:hover {
+  background-color: var(--md-sys-color-tertiary-fixed-dim);
+  color: var(--md-sys-color-on-tertiary-fixed-variant);
+}
+
+.is-danger {
+  background-color: var(--bulma-danger);
+  border-color: transparent;
+  color: var(--md-sys-color-on-error);
+}
+.is-danger.is-hovered,
+.is-danger:hover {
+  background-color: var(--md-sys-color-error-container);
+  color: var(--md-sys-color-on-error-container);
+}
+
+.is-light {
+    background-color: var(--bulma-light);
+    border-color: transparent;
+    color: var(--md-sys-color-on-surface);
+}
+
+.is-dark {
+    background-color: var(--bulma-dark);
+    border-color: transparent;
+    color: var(--md-sys-color-on-surface);
+}

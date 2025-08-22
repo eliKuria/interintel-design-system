@@ -4,11 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Button Component</title>
-  <!-- Bulma CSS CDN -->
+
+  <!-- Bulma CSS (CDN) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+  <!-- Material Tokens + Bulma Overrides (relative path from /components/buttons/) -->
+  <link rel="stylesheet" href="../../styles/tokens.css">
+  <link rel="stylesheet" href="../../styles/bulma-overrides.css">
 </head>
-<body>
-  <!-- Example Bulma Button -->
-  <button class="button is-primary">Click Me</button>
+<body class="section">
+
+  <h1 class="title">Button Component Preview</h1>
+
+  <div class="buttons">
+    <button class="button is-primary">Primary</button>
+    <button class="button is-link">Secondary</button>
+    <button class="button is-primary is-light">Primary (light)</button>
+    <button class="button is-link is-light">Secondary (light)</button>
+    <button class="button is-primary is-outlined">Primary (outlined)</button>
+  </div>
+
 </body>
 </html>
