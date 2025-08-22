@@ -1,7 +1,7 @@
  /* Root variables for the default light theme */
         :root {
             /* Light Scheme Colors */
-            --md-sys-color-primary: #0C0070;
+            --md-sys-color-primary: #1800AD;
             --md-sys-color-surface-tint: #4C49D7;
             --md-sys-color-on-primary: #FFFFFF;
             --md-sys-color-primary-container: #1800AD;
