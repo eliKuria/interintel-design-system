@@ -140,7 +140,9 @@
 
 /* ----------------------------------Outlined text field CSS------------------------------------------------------- */
 .outlined-textfield {
+  display: block;
   position: relative;
+  width: 100%;
   margin-bottom: 24px;
   margin-left: 50px;
   margin-top: 50px;
