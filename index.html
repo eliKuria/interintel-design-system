@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Design System Preview</title>
+  <title>Interintel Design System</title>
 
   <!-- Bulma (CDN) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
@@ -11,15 +11,61 @@
   <!-- Your tokens + overrides -->
   <link rel="stylesheet" href="styles/tokens.css">
   <link rel="stylesheet" href="styles/bulma-overrides.css">
-</head>
-<body class="section">
-  <h1 class="title">Interintel Design System</h1>
 
-  <p class="subtitle">Preview components:</p>
-  <ul>
-    <li><a href="components/buttons/button.html">Button Component</a></li>
-    <li><a href="components/textfields/textfield.html">Textfield Component</a></li>
-    <!-- Add more links as you create components -->
-  </ul>
+  <!-- Extra CSS styling for index page -->
+  <style>
+    body {
+      font-family: "Segoe UI", Roboto, sans-serif;
+      background-color: var(--md-sys-color-background, #f5f5f5);
+      color: var(--md-sys-color-on-background, #1b1b1b);
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    h1.title {
+      color: var(--md-sys-color-primary, #0c0070);
+      margin-bottom: 1rem;
+    }
+    p.subtitle {
+      margin-bottom: 2rem;
+      font-size: 1.2rem;
+      color: var(--md-sys-color-secondary, #585993);
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    ul li {
+      margin: 0.75rem 0;
+    }
+    ul li a {
+      display: inline-block;
+      padding: 0.75rem 1.25rem;
+      background: var(--md-sys-color-primary, #0c0070);
+      color: var(--md-sys-color-on-primary, #ffffff);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    ul li a:hover {
+      background: var(--md-sys-color-secondary, #585993);
+      color: #f5f5f5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Interintel Design System</h1>
+    <p class="subtitle">Preview your Material-themed components:</p>
+
+    <ul>
+      <li><a href="components/button.html">Button Component</a></li>
+      <li><a href="components/textfield.html">Textfield Component</a></li>
+      <li><a href="components/callingsimulation.html">Calling Simulation Component</a></li>
+      <!-- Add more links as you create components -->
+    </ul>
+  </div>
 </body>
 </html>
