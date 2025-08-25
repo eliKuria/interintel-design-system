@@ -4,46 +4,184 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calling Animation</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="../styles/tokens.css">
+    <!-- <link rel="stylesheet" href="../styles/bulma-overrides.css"> -->
     <!-- Use Inter font from a previous design -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="../styles/tokens.css">
-    <link rel="stylesheet" href="../styles/bulma-overrides.css">
+    <style>
+        :root {
+            --md-sys-color-primary-light: #1800AD;
+            --md-sys-color-on-primary-light: #FFFFFF;
+            --md-sys-color-surface-container-low-light: #F5F2FE;
+            --md-sys-color-on-surface-light: #1B1B23;
+            --md-sys-color-on-surface-variant-light: #464554;
+            --md-sys-color-outline-light: #777586;
+            --md-sys-color-secondary-light: #585993;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Define the pulsating ring animation for the inner circles */
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1.4);
+                opacity: 0;
+            }
+        }
+        
+        /* The main container styling, with a fixed height and border */
+        .calling-container {
+            background-color: var(--md-sys-color-surface-container-low-light);
+            border-radius: 12px;
+            padding: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 20rem; /* Fixed height for the container */
+            width: 100%;
+            border: 4px solid var(--md-sys-color-primary-light);
+        }
+        
+        .header-card {
+            background-color: var(--md-sys-color-surface-container-low-light);
+            height: 64px;
+            border-radius: 0px;
+           color: var(--md-sys-color-on-surface-light);
+        }
+
+        /* Styles for the "Me" and "Client" circles */
+        .user-circle {
+            position: relative;
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            background-color: var(--md-sys-color-surface-bright-light);
+            color: var(--md-sys-color-on-surface-light);
+        }
+        
+        .visualizer-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid;
+            opacity: 0;
+        }
+
+        /* Styles for the client view */
+        .client-view {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background-color: white;
+            padding: 0.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 160px;
+            overflow: hidden;
+        }
+
+        .client-circle {
+            position: relative;
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background-color: black;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+        }
+
+        .mute-icon-container {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.25rem;
+            border-radius: 9999px;
+            background-color: var(--md-sys-color-on-surface-variant-light);
+        }
+
+        .mute-icon {
+            width: 1rem;
+            height: 1rem;
+            fill: white;
+        }
+
+        /* Helper classes for Bulma text and colors */
+        .has-text-grey-dark { color: #4A4B84; }
+        .has-text-grey-light { color: #8C8C94; }
+        .is-size-7 { font-size: 0.875rem; }
+        .has-text-weight-medium { font-weight: 500; }
+        .is-size-xs { font-size: 0.75rem; }
+    </style>
 </head>
 <body class="p-4">
     <!-- Overall container to hold the timer and the main call view -->
-    <div class="w-full max-w-2xl">
-        <!-- Top timer and status bar, now with a border and shadow -->
-        <div class="flex items-center space-x-2 rounded-md px-4 py-2 shadow-md mb-2 timer-card">
-            <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-            <span id="timer" class="text-sm font-medium text-gray-700">0 min 00 sec</span>
+    <div class="container is-max-w-2xl">
+        <!-- Top header with phone number and menu icon -->
+        <div class="box is-flex is-justify-content-space-between is-align-items-center mb-2 header-card">
+            <div class="is-flex is-align-items-center" style="gap: 0.5rem;">
+                <!-- Person icon -->
+                <svg class="has-text-grey-dark" style="width: 1.5rem; height: 1.5rem;" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+                <div>
+                    <span class="is-block is-size-7 has-text-weight-medium has-text-grey-dark">07 1234 5678</span>
+                    <span id="timer" class="is-block is-size-7 has-text-grey-light">2 mins</span>
+                </div>
+            </div>
+            <!-- Menu icon -->
+            <svg class="has-text-grey-dark" style="width: 1.5rem; height: 1.5rem;" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M4 18h16V16H4v2zm0-5h16v-2H4v2zm0-7v2h16V6H4z"/>
+            </svg>
         </div>
     
         <!-- Main container with the pulsing border -->
         <div class="calling-container">
             <!-- The central "Me" circle with a pulsating visualizer -->
-            <div class="user-circle bg-gray-100 text-gray-800">
+            <div class="user-circle has-background-light has-text-grey-dark">
                 <!-- The pulsating ring for the "talking" effect -->
-                <div id="me-visualizer-ring" class="visualizer-ring opacity-0" style="border-color: var(--md-sys-color-primary-light);"></div>
+                <div id="me-visualizer-ring" class="visualizer-ring" style="border-color: var(--md-sys-color-primary-light);"></div>
                 Me
             </div>
-
+            
             <!-- Client's small video container in the corner -->
             <div class="client-view">
-                <div class="client-circle bg-gray-900 text-white mb-1">
+                <div class="client-circle mb-1 has-background-dark has-text-white">
                     Client
                     <!-- The pulsating ring for the client's "talking" effect -->
-                    <div id="client-visualizer-ring" class="visualizer-ring opacity-0" style="border-color: var(--md-sys-color-secondary-light);"></div>
-                    <!-- Mute icon, positioned correctly over the client circle -->
-                    <div class="absolute bottom-0 right-0 p-1 rounded-full" style="background-color: var(--md-sys-color-on-surface-variant-light);">
-                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-2.99c0 3.53-2.64 6.4-6.19 6.75v3.24h-1.6v-3.24c-3.55-.35-6.19-3.22-6.19-6.75h2.01c0 2.94 2.36 5.34 5.3 5.34s5.3-2.4 5.3-5.34h2.01z"/>
-                        </svg>
-                    </div>
+                    <div id="client-visualizer-ring" class="visualizer-ring" style="border-color: var(--md-sys-color-secondary-light);"></div>
                 </div>
-                <span class="text-xs text-gray-500">Jane Smith</span>
+                <!-- Mute icon, positioned correctly over the client circle -->
+                <div class="mute-icon-container">
+                    <svg class="mute-icon" viewBox="0 0 24 24">
+                        <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-2.99c0 3.53-2.64 6.4-6.19 6.75v3.24h-1.6v-3.24c-3.55-.35-6.19-3.22-6.19-6.75h2.01c0 2.94 2.36 5.34 5.3 5.34s5.3-2.4 5.3-5.34h2.01z"/>
+                    </svg>
+                </div>
+                <span class="is-size-7 has-text-grey">Jane Smith</span>
             </div>
         </div>
     </div>
@@ -52,7 +190,9 @@
         const timerElement = document.getElementById('timer');
         let seconds = 0;
         let minutes = 0;
-
+        const meRing = document.getElementById('me-visualizer-ring');
+        const clientRing = document.getElementById('client-visualizer-ring');
+        
         function updateTimer() {
             seconds++;
             if (seconds === 60) {
@@ -64,36 +204,27 @@
             timerElement.textContent = `${formattedMinutes} min ${formattedSeconds} sec`;
         }
 
-        // Start the timer
-        setInterval(updateTimer, 1000);
-
-        // Get the visualizer rings
-        const meRing = document.getElementById('me-visualizer-ring');
-        const clientRing = document.getElementById('client-visualizer-ring');
-        
-        // This function simulates a back-and-forth conversation
         function simulateConversation() {
-            // First, "Me" talks
-            meRing.classList.add('is-talking');
+            // "Me" talks, "Client" is quiet
             meRing.style.opacity = '1';
+            clientRing.style.opacity = '0';
             
-            // After 3 seconds, "Me" stops talking and "Client" starts
             setTimeout(() => {
-                meRing.classList.remove('is-talking');
+                // "Me" stops, "Client" starts talking
                 meRing.style.opacity = '0';
-                
-                clientRing.classList.add('is-talking');
                 clientRing.style.opacity = '1';
                 
-                // After another 3 seconds, "Client" stops talking and the cycle repeats
                 setTimeout(() => {
-                    clientRing.classList.remove('is-talking');
+                    // "Client" stops, restart the conversation
                     clientRing.style.opacity = '0';
-                    simulateConversation(); // Restart the conversation
+                    simulateConversation();
                 }, 3000);
             }, 3000);
         }
-        
+
+        // Start the timer
+        setInterval(updateTimer, 1000);
+
         // Start the conversation simulation
         simulateConversation();
     </script>
